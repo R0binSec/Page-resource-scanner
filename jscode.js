@@ -12,6 +12,10 @@ javascript:(async () => {
     }
 
     function isValidPath(path) {
+        // 排除协议相对URL（以双斜杠开头）和包含协议头的绝对URL
+        if (path.startsWith("//") || path.includes("://")) {
+            return false;
+        }
         return (path.startsWith("/") || path.startsWith("./") || path.startsWith("../")) &&
             !path.includes(" ") &&
             !/[^\x20-\x7E]/.test(path) &&
